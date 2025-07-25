@@ -3,7 +3,7 @@ package device_plugin
 import (
 	"context"
 	"fmt"
-	"github.com/Gentleelephant/my-device-plugin/common"
+	"github.com/Gentleelephant/my-device-plugin/pkg/common"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"k8s.io/klog/v2"

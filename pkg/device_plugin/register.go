@@ -2,7 +2,7 @@ package device_plugin
 
 import (
 	"context"
-	"github.com/Gentleelephant/my-device-plugin/common"
+	"github.com/Gentleelephant/my-device-plugin/pkg/common"
 	"k8s.io/klog/v2"
 	pluginapi "k8s.io/kubelet/pkg/apis/deviceplugin/v1beta1"
 	"path"
