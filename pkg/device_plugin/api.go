@@ -2,6 +2,7 @@ package device_plugin
 
 import (
 	"context"
+	"github.com/Gentleelephant/my-device-plugin/pkg/common"
 	"k8s.io/klog/v2"
 	pluginapi "k8s.io/kubelet/pkg/apis/deviceplugin/v1beta1"
 	"strings"
@@ -51,11 +52,22 @@ func (gdp *GopherDevicePlugin) Allocate(_ context.Context, req *pluginapi.Alloca
 	klog.Infoln("[Allocate] is called")
 	ret := &pluginapi.AllocateResponse{}
 	for _, r := range req.ContainerRequests {
-		klog.Infof("[Allocate] is called: [%v]", strings.Join(r.DevicesIDs, ","))
+		klog.Infof("request device: [%v]", strings.Join(r.GetDevicesIDs(), ","))
+		klog.Infof("request container: [%v]", r.Size())
+
+		mounts := make([]*pluginapi.Mount, 0)
+		for _, s := range r.GetDevicesIDs() {
+			mounts = append(mounts, &pluginapi.Mount{
+				ContainerPath: common.DevicePath + s,
+				HostPath:      common.DevicePath + s,
+			})
+		}
+
 		response := pluginapi.ContainerAllocateResponse{
 			Envs: map[string]string{
 				"Gopher": strings.Join(r.DevicesIDs, ","),
 			},
+			Mounts: mounts,
 		}
 		ret.ContainerResponses = append(ret.ContainerResponses, &response)
 	}
