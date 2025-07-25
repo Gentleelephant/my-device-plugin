@@ -10,7 +10,7 @@ RUN go mod download
 COPY . .
 
 # Build the project
-RUN CGO_ENABLED=0 GO111MODULE=on GOOS=linux go build -a -o bin/my-device-plugin cmd/main.go
+RUN CGO_ENABLED=0 GO111MODULE=on GOOS=linux go build -v -a -o bin/my-device-plugin cmd/main.go
 
 FROM alpine:latest
 
