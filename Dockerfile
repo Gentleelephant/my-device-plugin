@@ -1,10 +1,9 @@
-FROM golang:1.22.5 AS builder
+FROM golang:1.24.2 AS builder
 
 WORKDIR /app
 
 # Copy go.mod and go.sum files and download dependencies
 COPY go.mod go.sum ./
-ENV GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 
 # Copy the entire project
