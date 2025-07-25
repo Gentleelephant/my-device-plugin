@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-device-plugin
+  namespace: kube-system
+  labels:
+    app: my-device-plugin
+spec:
+  selector:
+    matchLabels:
+      app: my-device-plugin
+  template:
+    metadata:
+      labels:
+        app: my-device-plugin
+    spec:
+      containers:
+        - name: my-device-plugin
+          image: docker.io/birdhk/my-device-plugin:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.1"
+              memory: "128Mi"
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: gophers
+              mountPath: /etc/gophers
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: gophers
+          hostPath:
+            path: /etc/gophers
