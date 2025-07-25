@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-device-plugin
-          image: registry.cn-hangzhou.aliyuncs.com/birdhk/my-device-plugin:latest
+          image: birdhk/my-device-plugin:latest
           imagePullPolicy: Always
           resources:
             limits:

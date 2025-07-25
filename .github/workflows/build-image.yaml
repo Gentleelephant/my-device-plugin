@@ -56,3 +56,4 @@ jobs:
         run: |
           tag=$(cat VERSION | tr -d " \t\n\r")
           docker build -t birdhk/my-device-plugin:$tag .
+          docker push birdhk/my-device-plugin:$tag
